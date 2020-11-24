@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8">
+<html <?php language_attributes();?>>
+<head>
+    <meta charset="<?php bloginfo( 'charset' );?>">
     <meta http-equiv='X-UA-Compatible' content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="favicon.png">
-    <title> Главная </title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,800,900&display=swap&subset=cyrillic" rel="preload stylesheet">
-    <link rel="stylesheet" href="./css/styles.css">
-  </head>
-  <body>
+    <?php wp_head();?>
+  <?php
+  $body_class = '';
+  if( !is_front_page() ){
+      $body_class ='inner';
+  }
+  ?>
+  <body class="<?php echo $body_class; ?>"
     <header class="main-header">
       <div class="wrapper main-header__wrap">
-        <a href="index.html" class="main-header__logolink" aria-label="Логотип-ссылка на Главную">
-          <img src="img/logo.png" alt="">
-        </a>
+          <?php the_custom_logo();?>
         <nav class="main-navigation">
           <ul class="main-navigation__list">
             <li>

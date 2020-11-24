@@ -28,10 +28,11 @@
 <div class="footer">
     <header class="main-header">
         <div class="wrapper main-header__wrap">
-            <a href="index.html" class="main-header__logolink" aria-label="Логотип-ссылка на Главную">
-                <img src="img/logo.png" alt="">
+            <p class="main-header__logolink">
+                <?php the_custom_logo();?>
                 <span class="slogan">Твой фитнес клуб всегда рядом!</span>
-            </a>
+            </p>
+
             <nav class="main-navigation">
                 <ul class="main-navigation__list">
                     <li>
