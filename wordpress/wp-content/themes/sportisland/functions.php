@@ -1,10 +1,22 @@
 <?php
-require_once(__DIR__ . '/inc/widget-text.php');
+$widgets = [
+    'widget-text.php',
+    'widget-contacts.php',
+    'widget-social-links.php',
+    'widget-iframe.php',
+    'widget-info.php',
+];
+
+foreach ($widgets as $w ){
+    require_once( __DIR__ . '/inc/' . $w);
+}
+
 add_action('after_setup_theme', 'si_setup');
 add_filter('show_admin_bar', '__return_false');
 add_action('wp_enqueue_scripts', 'si_scripts');
 add_action( 'widgets_init', 'si_register' );
-
+add_shortcode('si-paste-link', 'si_paste_link');
+add_filter('si_widget_text', 'do_shortcode');
 function si_setup(){
     register_nav_menu('menu-header', 'Меню в шапке');
     register_nav_menu('menu-footer', 'Меню в подвале');
@@ -76,6 +88,38 @@ function si_register(){
         'after_widget' => null,
     ]);
      register_widget('SI_Widget_Text');
+    register_widget( 'SI_Widget_Contacts');
+    register_widget( 'SI_Widget_Social_Links');
+    register_widget( 'SI_Widget_Iframe');
+    register_widget( 'SI_Widget_Info');
+}
+function si_paste_link( $attr ){
+    $params = shortcode_atts([ //Сливаются данные
+        'link' => '',
+        'text' => '',
+        'type' => 'link'
+    ], $attr);
+    $params['text'] = $params['text'] ? $params['text'] : $params['link'];
+    if( $params['link'] ){
+        $protocol = '';
+        switch ( $params['type'] ){
+            case 'email':
+                $protocol = 'mailto:';
+                break;
+            case 'phone':
+                $protocol = 'tel:';
+                $params['link'] = preg_replace('/[^+0-9]/', '', $params['link']);
+                break;
+            default:
+                $protocol = '';
+                break;
+        }
+        $link = $protocol . $params['link'];
+        $text = $params['text'];
+        return "<a href=\"${link}\">${text}</a>";
+    } else {
+        return '';
+    }
 }
 
 function _si_assets_path($path){
