@@ -15,6 +15,7 @@ add_action('after_setup_theme', 'si_setup');
 add_filter('show_admin_bar', '__return_false');
 add_action('wp_enqueue_scripts', 'si_scripts');
 add_action( 'widgets_init', 'si_register' );
+add_action('init', 'si_register_types');
 add_shortcode('si-paste-link', 'si_paste_link');
 add_filter('si_widget_text', 'do_shortcode');
 function si_setup(){
@@ -93,6 +94,7 @@ function si_register(){
     register_widget( 'SI_Widget_Iframe');
     register_widget( 'SI_Widget_Info');
 }
+
 function si_paste_link( $attr ){
     $params = shortcode_atts([ //Сливаются данные
         'link' => '',
@@ -120,6 +122,150 @@ function si_paste_link( $attr ){
     } else {
         return '';
     }
+}
+function si_register_types()
+{
+
+    register_post_type('services', [
+        'labels' => [
+            'name'               => 'Услуги', // основное название для типа записи
+            'singular_name'      => 'Услуга', // название для одной записи этого типа
+            'add_new'            => 'Добавить новую услугу', // для добавления новой записи
+            'add_new_item'       => 'Добавить новую услугу', // заголовка у вновь создаваемой записи в админ-панели.
+            'edit_item'          => 'Редактировать услугу', // для редактирования типа записи
+            'new_item'           => 'Новая услуга', // текст новой записи
+            'view_item'          => 'Смотреть услуги', // для просмотра записи этого типа.
+            'search_items'       => 'Искать услуги', // для поиска по этим типам записи
+            'not_found'          => 'Не найдено', // если в результате поиска ничего не было найдено
+            'not_found_in_trash' => 'Не найдено в корзине', // если не было найдено в корзине
+            'parent_item_colon'  => '', // для родителей (у древовидных типов)
+            'menu_name'          => 'Услуги', // название меню
+        ],
+        'public'              => true,
+        'menu_position'       => 20,
+        'menu_icon'           => 'dashicons-buddicons-activity',
+        'hierarchical'        => false,
+        'supports'            => ['title'],
+        'has_archive' => true
+    ]);
+
+    register_post_type( 'trainers', [
+        'labels' => [
+            'name'               => 'Тренеры', // основное название для типа записи
+            'singular_name'      => 'Тренер', // название для одной записи этого типа
+            'add_new'            => 'Добавить нового тренера', // для добавления новой записи
+            'add_new_item'       => 'Добавить нового тренера', // заголовка у вновь создаваемой записи в админ-панели.
+            'edit_item'          => 'Редактировать тренера', // для редактирования типа записи
+            'new_item'           => 'Новый тренер', // текст новой записи
+            'view_item'          => 'Смотреть тренера', // для просмотра записи этого типа.
+            'search_items'       => 'Искать тренера', // для поиска по этим типам записи
+            'not_found'          => 'Не найдено', // если в результате поиска ничего не было найдено
+            'not_found_in_trash' => 'Не найдено в корзине', // если не было найдено в корзине
+            'parent_item_colon'  => '', // для родителей (у древовидных типов)
+            'menu_name'          => 'Тренеры', // название меню
+        ],
+        'public'              => true,
+        'menu_position'       => 20,
+        'menu_icon'           => 'dashicons-buddicons-buddypress-logo',
+        'hierarchical'        => false,
+        'supports'            => ['title'],
+        'has_archive' => true
+    ]);
+
+    register_post_type( 'schedule', [
+        'labels' => [
+            'name'               => 'Занятия', // основное название для типа записи
+            'singular_name'      => 'Занятие', // название для одной записи этого типа
+            'add_new'            => 'Добавить занятие', // для добавления новой записи
+            'add_new_item'       => 'Добавить занятие', // заголовка у вновь создаваемой записи в админ-панели.
+            'edit_item'          => 'Редактировать занятие', // для редактирования типа записи
+            'new_item'           => 'Новое занятие', // текст новой записи
+            'view_item'          => 'Смотреть занятие', // для просмотра записи этого типа.
+            'search_items'       => 'Искать занятие', // для поиска по этим типам записи
+            'not_found'          => 'Не найдено', // если в результате поиска ничего не было найдено
+            'not_found_in_trash' => 'Не найдено в корзине', // если не было найдено в корзине
+            'parent_item_colon'  => '', // для родителей (у древовидных типов)
+            'menu_name'          => 'Занятия', // название меню
+        ],
+        'public'              => true,
+        'menu_position'       => 20,
+        'menu_icon'           => 'dashicons-games',
+        'hierarchical'        => false,
+        'supports'            => ['title'],
+        'has_archive' => true
+    ]);
+
+    register_post_type( 'prices', [
+        'labels' => [
+            'name'               => 'Прайсы', // основное название для типа записи
+            'singular_name'      => 'Прайс', // название для одной записи этого типа
+            'add_new'            => 'Добавить прайс', // для добавления новой записи
+            'add_new_item'       => 'Добавить прайс', // заголовка у вновь создаваемой записи в админ-панели.
+            'edit_item'          => 'Редактировать прайс', // для редактирования типа записи
+            'new_item'           => 'Новый прайс', // текст новой записи
+            'view_item'          => 'Смотреть прайс', // для просмотра записи этого типа.
+            'search_items'       => 'Искать прайс', // для поиска по этим типам записи
+            'not_found'          => 'Не найдено', // если в результате поиска ничего не было найдено
+            'not_found_in_trash' => 'Не найдено в корзине', // если не было найдено в корзине
+            'parent_item_colon'  => '', // для родителей (у древовидных типов)
+            'menu_name'          => 'Прайсы', // название меню
+        ],
+        'public'              => true,
+        'menu_position'       => 20,
+        'menu_icon'           => 'dashicons-cart',
+        'hierarchical'        => false,
+        'show_in_rest'        => true,
+        'supports'            => ['title'],
+        'has_archive' => true
+    ]);
+
+    register_post_type( 'cards', [
+        'labels' => [
+            'name'               => 'Карты', // основное название для типа записи
+            'singular_name'      => 'Карта', // название для одной записи этого типа
+            'add_new'            => 'Добавить карту', // для добавления новой записи
+            'add_new_item'       => 'Добавить карту', // заголовка у вновь создаваемой записи в админ-панели.
+            'edit_item'          => 'Редактировать карту', // для редактирования типа записи
+            'new_item'           => 'Новая карта', // текст новой записи
+            'view_item'          => 'Смотреть карту', // для просмотра записи этого типа.
+            'search_items'       => 'Искать карту', // для поиска по этим типам записи
+            'not_found'          => 'Не найдено', // если в результате поиска ничего не было найдено
+            'not_found_in_trash' => 'Не найдено в корзине', // если не было найдено в корзине
+            'parent_item_colon'  => '', // для родителей (у древовидных типов)
+            'menu_name'          => 'Карты', // название меню
+        ],
+        'public'              => true,
+        'menu_position'       => 20,
+        'menu_icon'           => 'dashicons-menu-alt3   ',
+        'hierarchical'        => false,
+        'supports'            => ['title'],
+        'has_archive' => false
+    ]);
+
+    register_post_type( 'orders', [
+        'labels' => [
+            'name'               => 'Заявки', // основное название для типа записи
+            'singular_name'      => 'Заявка', // название для одной записи этого типа
+            'add_new'            => 'Добавить заявку', // для добавления новой записи
+            'add_new_item'       => 'Добавить заявки', // заголовка у вновь создаваемой записи в админ-панели.
+            'edit_item'          => 'Редактировать заявки', // для редактирования типа записи
+            'new_item'           => 'Новая заявка', // текст новой записи
+            'view_item'          => 'Смотреть заявки', // для просмотра записи этого типа.
+            'search_items'       => 'Искать заявки', // для поиска по этим типам записи
+            'not_found'          => 'Не найдено', // если в результате поиска ничего не было найдено
+            'not_found_in_trash' => 'Не найдено в корзине', // если не было найдено в корзине
+            'parent_item_colon'  => '', // для родителей (у древовидных типов)
+            'menu_name'          => 'Заявки', // название меню
+        ],
+        'public'              => false,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'menu_position'       => 20,
+        'menu_icon'           => 'dashicons-text-page',
+        'hierarchical'        => false,
+        'supports'            => ['title'],
+        'has_archive'         => false
+    ]);
 }
 
 function _si_assets_path($path){
