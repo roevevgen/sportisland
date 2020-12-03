@@ -17,6 +17,7 @@ add_action('wp_enqueue_scripts', 'si_scripts');
 add_action( 'widgets_init', 'si_register' );
 add_action('init', 'si_register_types');
 add_action( 'add_meta_boxes', 'si_meta_boxes');
+add_action( 'save_post', 'si_save_like_meta' );
 add_shortcode('si-paste-link', 'si_paste_link');
 add_filter('si_widget_text', 'do_shortcode');
 
@@ -125,6 +126,7 @@ function si_paste_link( $attr ){
         return '';
     }
 }
+
 function si_register_types()
 {
 
@@ -306,7 +308,7 @@ function si_register_types()
     ]);
 }
 
- function si_meta_boxes()
+function si_meta_boxes()
  {
      add_meta_box(
          'si-like',
@@ -336,8 +338,14 @@ function si_register_types()
 function si_meta_like_cb( $post_obj ){
     $likes = get_post_meta( $post_obj->ID, 'si-like', true);
     $likes = $likes ? $likes : 0;
-//    echo "<input type=\"text\" name=\"si-like\" value=\"${likes}\"";
-    echo '<p>' . $likes . '</p>';
+    echo "<input type=\"text\" name=\"si-like\" value=\"${likes}\"";
+//    echo '<p>' . $likes . '</p>';
+}
+
+function si_save_like_meta( $post_id ){
+    if( isset( $_POST['si-like'] ) ){
+        update_post_meta( $post_id, 'si-like', $_POST['si-like'] );
+    }
 }
 
 function _si_assets_path($path){
