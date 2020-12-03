@@ -18,6 +18,7 @@ add_action( 'widgets_init', 'si_register' );
 add_action('init', 'si_register_types');
 add_shortcode('si-paste-link', 'si_paste_link');
 add_filter('si_widget_text', 'do_shortcode');
+
 function si_setup(){
     register_nav_menu('menu-header', 'Меню в шапке');
     register_nav_menu('menu-footer', 'Меню в подвале');
@@ -265,6 +266,42 @@ function si_register_types()
         'hierarchical'        => false,
         'supports'            => ['title'],
         'has_archive'         => false
+    ]);
+
+    register_taxonomy('schedule_days', ['schedule'], [
+        'labels'                => [
+            'name'              => 'Дни недели',
+            'singular_name'     => 'День',
+            'search_items'      => 'Найти день недели',
+            'all_items'         => 'Все дни недели',
+            'view_item '        => 'Посмотреть дни недели',
+            'edit_item'         => 'Редактировать дни недели',
+            'update_item'       => 'Обновить',
+            'add_new_item'      => 'Добавить день недели',
+            'new_item_name'     => 'Добавить день недели',
+            'menu_name'         => 'Все дни недели',
+        ],
+        'description'           => '',
+        'public'                => true,
+        'hierarchical'          => true
+    ]);
+
+    register_taxonomy('places', ['schedule'], [
+        'labels'                => [
+            'name'              => 'Залы',
+            'singular_name'     => 'Зал',
+            'search_items'      => 'Найти зал',
+            'all_items'         => 'Все залы',
+            'view_item '        => 'Посмотреть зал',
+            'edit_item'         => 'Редактировать зал',
+            'update_item'       => 'Обновить',
+            'add_new_item'      => 'Добавить зал',
+            'new_item_name'     => 'Добавить зал',
+            'menu_name'         => 'Все залы',
+        ],
+        'description'           => '',
+        'public'                => true,
+        'hierarchical'          => true
     ]);
 }
 
