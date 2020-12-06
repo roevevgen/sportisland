@@ -69,7 +69,9 @@
         <div class="row main-footer__row">
             <div class="main-footer__widget main-footer__widget_copyright">
                 <span class="widget-text">
+                    ©
                     <?php
+                      echo  date("Y");
                     if(is_active_sidebar('si-footer-col1'))
                     {
                         dynamic_sidebar('si-footer-col1');
