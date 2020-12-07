@@ -9,20 +9,23 @@ get_header();
         <h1 class="sr-only"> Домашняя страница спортклуба SportIsland. </h1>
         <div class="banner">
             <span class="sr-only">Будь в форме!</span>
-            <a href="trainers.html" class="banner__link btn">записаться</a>
+            <a href="<?php echo get_post_type_archive_link('services'); ?>" class="banner__link btn">записаться</a>
         </div>
-        <article class="about">
-            <div class="wrapper about__flex">
-                <div class="about__wrap">
-                    <h2 class="main-heading about__h"> кто мы такие </h2>
-                    <p class="about__text"> Спортивный клуб SPORTISLAND существует уже более 5 лет. За это время большое количество посетителей получили положительный результат от своих тренировок. Мы предлагаем посещать просторный и укомплектованный тренажерный зал с персональными тренерами, массаж, групповые занятия (фитнес), занятия единоборствами в группах и индивидуально, и большое количество тренировок для детей. В каждый абонемент входит посещение финской сауны </p>
-                    <a href="blog.html" class="about__link btn">подробнее</a>
-                </div>
-                <figure class="about__thumb">
-                    <img src="img/index__about_img.jpg" alt="Power lifter">
-                </figure>
-            </div>
-        </article>
+        <?php
+            if (is_active_sidebar('si-main-state') ){
+                dynamic_sidebar('si-main-state');
+            }
+        ?>
+        <?php
+            $sales = get_posts([
+                'numberposts' => -1,
+                'category_name' => 'sales',
+                'meta_key' => 'sales_actual',
+                'meta_value' => '1',
+            ]);
+            if ($sales) :
+                ?>
+
         <section class="sales">
             <div class="wrapper">
                 <header class="sales__header">
@@ -37,33 +40,30 @@ get_header();
                     </p>
                 </header>
                 <div class="sales__slider slider">
-                    <section class="slider__slide stock">
-                        <a href="blog.html" class="stock__link" aria-label="Подробнее об акции скидка 20% на групповые занятия">
-                            <img src="img/index__sales_pic1.jpg" alt="" class="stock__thumb">
-                            <h3 class="stock__h"> Групповые занятия 20% скидка </h3>
-                            <p class="stock__text"> Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке. </p>
+                <?php
+                global $post;
+                foreach ( $sales as $post ):
+                    setup_postdata( $post )
+                    ?>
+                    <section class="slider__slide stock" style="width: 100%; display: inline-block;">
+                        <a href="<?php the_permalink(); ?>" class="stock__link" aria-label="Подробнее об акции скидка 20% на групповые занятия">
+                            <?php the_post_thumbnail('full', ['class' => 'stock__thumb']); ?>
+                            <h3 class="stock__h"> <?php the_title(); ?> </h3>
+                            <p class="stock__text"><?php echo get_the_excerpt(); ?></p>
                             <span class="stock__more link-more_inverse link-more">Подробнее</span>
                         </a>
                     </section>
-                    <section class="slider__slide stock">
-                        <a href="blog.html" class="stock__link" aria-label="Подробнее об акции Скидка 30% на занятия с тренером">
-                            <img src="img/index__sales_pic2.jpg" alt="" class="stock__thumb">
-                            <h3 class="stock__h"> Скидка 30% на занятия с тренером </h3>
-                            <p class="stock__text"> Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке. </p>
-                            <span class="stock__more  link-more_inverse link-more">Подробнее</span>
-                        </a>
-                    </section>
-                    <section class="slider__slide stock">
-                        <a href="blog.html" class="stock__link" aria-label="Подробнее об акции Скидка 30% на занятия с тренером">
-                            <img src="img/index__sales_pic2.jpg" alt="" class="stock__thumb">
-                            <h3 class="stock__h"> Скидка 30% на занятия с тренером </h3>
-                            <p class="stock__text"> Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке. </p>
-                            <span class="stock__more  link-more_inverse link-more">Подробнее</span>
-                        </a>
-                    </section>
+
+                <?php
+                endforeach;
+                wp_reset_postdata();
+                ?>
+
                 </div>
             </div>
         </section>
+
+            <?php endif; ?>
         <section class="cards cards_index">
             <div class="wrapper">
                 <h2 class="main-heading cards__h"> клубные карты </h2>

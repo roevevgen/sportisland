@@ -5,6 +5,7 @@ $widgets = [
     'widget-social-links.php',
     'widget-iframe.php',
     'widget-info.php',
+    'widget-main-state.php'
 ];
 
 foreach ($widgets as $w ){
@@ -91,11 +92,18 @@ function si_register(){
         'before_widget' => null,
         'after_widget' => null,
     ]);
-     register_widget('SI_Widget_Text');
+    register_sidebar([
+        'name' => 'Сайдбар с главной статьей',
+        'id' => 'si-main-state',
+        'before_widget' => null,
+        'after_widget' => null,
+    ]);
+    register_widget('SI_Widget_Text');
     register_widget( 'SI_Widget_Contacts');
     register_widget( 'SI_Widget_Social_Links');
     register_widget( 'SI_Widget_Iframe');
     register_widget( 'SI_Widget_Info');
+    register_widget( 'SI_Widget_Main_State' );
 }
 
 function si_paste_link( $attr ){
