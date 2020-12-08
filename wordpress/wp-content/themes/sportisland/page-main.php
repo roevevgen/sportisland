@@ -1,31 +1,32 @@
 <?php
 /*
- Template Name: Шаблон для главной страницы
+Template Name: Шаблон для главной страницы
  */
+
 get_header();
 ?>
 
-    <main class="main-content">
-        <h1 class="sr-only"> Домашняя страница спортклуба SportIsland. </h1>
-        <div class="banner">
-            <span class="sr-only">Будь в форме!</span>
-            <a href="<?php echo get_post_type_archive_link('services'); ?>" class="banner__link btn">записаться</a>
-        </div>
-        <?php
-            if (is_active_sidebar('si-main-state') ){
-                dynamic_sidebar('si-main-state');
-            }
-        ?>
-        <?php
-            $sales = get_posts([
-                'numberposts' => -1,
-                'category_name' => 'sales',
-                'meta_key' => 'sales_actual',
-                'meta_value' => '1',
-            ]);
-            if ($sales) :
-                ?>
+<main class="main-content">
+    <h1 class="sr-only"> Домашняя страница спортклуба SportIsland. </h1>
+    <div class="banner">
+        <span class="sr-only">Будь в форме!</span>
+        <a href="<?php echo get_post_type_archive_link('services'); ?>" class="banner__link btn">записаться</a>
+    </div>
 
+    <?php
+    if (is_active_sidebar('si-main-state') ){
+        dynamic_sidebar('si-main-state');
+    }
+    ?>
+    <?php
+    $sales = get_posts([
+        'numberposts' => -1,
+        'category_name' => 'sales',
+        'meta_key' => 'sales_actual',
+        'meta_value' => '1',
+    ]);
+    if ($sales) :
+        ?>
         <section class="sales">
             <div class="wrapper">
                 <header class="sales__header">
@@ -40,91 +41,81 @@ get_header();
                     </p>
                 </header>
                 <div class="sales__slider slider">
-                <?php
-                global $post;
-                foreach ( $sales as $post ):
-                    setup_postdata( $post )
-                    ?>
-                    <section class="slider__slide stock" style="width: 100%; display: inline-block;">
-                        <a href="<?php the_permalink(); ?>" class="stock__link" aria-label="Подробнее об акции скидка 20% на групповые занятия">
-                            <?php the_post_thumbnail('full', ['class' => 'stock__thumb']); ?>
-                            <h3 class="stock__h"> <?php the_title(); ?> </h3>
-                            <p class="stock__text"><?php echo get_the_excerpt(); ?></p>
-                            <span class="stock__more link-more_inverse link-more">Подробнее</span>
-                        </a>
-                    </section>
 
-                <?php
-                endforeach;
-                wp_reset_postdata();
-                ?>
-
+                    <?php
+                    global $post;
+                    foreach ( $sales as $post ):
+                        setup_postdata( $post )
+                        ?>
+                        <section class="slider__slide stock">
+                            <a href="<?php the_permalink(); ?>" class="stock__link" aria-label="Подробнее об акции Скидка 30% на занятия с тренером">
+                                <?php the_post_thumbnail('full', ['class' => 'stock__thumb']); ?>
+                                <h3 class="stock__h"><?php the_title(); ?></h3>
+                                <p class="stock__text"><?php echo get_the_excerpt(); ?></p>
+                                <span class="stock__more  link-more_inverse link-more">Подробнее</span>
+                            </a>
+                        </section>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </section>
-
-            <?php endif; ?>
-        <section class="cards cards_index">
-            <div class="wrapper">
-                <h2 class="main-heading cards__h"> клубные карты </h2>
-                <ul class="cards__list row">
-                    <li class="card">
-                        <h3 class="card__name"> полный день </h3>
-                        <p class="card__time"> 7:00 &ndash; 22:00 </p>
-                        <p class="card__price price"> 3200 <span class="price__unit" aria-label="рублей в месяц">р.-/мес.</span>
-                        </p>
-                        <ul class="card__features">
-                            <li class="card__feature">Безлимит посещений клуба</li>
-                            <li class="card__feature">Вводный инструктаж</li>
-                            <li class="card__feature">Групповые занятия</li>
-                            <li class="card__feature">Сауна</li>
-                        </ul>
-                        <a data-post-id="99" href="#modal-form" class="card__buy btn btn_modal">купить</a>
-                    </li>
-                    <li class="card card_profitable">
-                        <h3 class="card__name"> полный день </h3>
-                        <p class="card__time"> 7:00 &ndash; 22:00 </p>
-                        <p class="card__price price"> 3200 <span class="price__unit" aria-label="рублей в месяц">р.-/мес.</span>
-                        </p>
-                        <ul class="card__features">
-                            <li class="card__feature">Безлимит посещений клуба</li>
-                            <li class="card__feature">Вводный инструктаж</li>
-                            <li class="card__feature">Групповые занятия</li>
-                            <li class="card__feature">Сауна</li>
-                        </ul>
-                        <a data-post-id="99" href="#modal-form" class="card__buy btn btn_modal">купить</a>
-                    </li>
-                    <li class="card">
-                        <h3 class="card__name"> полный день </h3>
-                        <p class="card__time"> 7:00 &ndash; 22:00 </p>
-                        <p class="card__price price"> 3200 <span class="price__unit" aria-label="рублей в месяц">р.-/мес.</span>
-                        </p>
-                        <ul class="card__features">
-                            <li class="card__feature">Безлимит посещений клуба</li>
-                            <li class="card__feature">Вводный инструктаж</li>
-                            <li class="card__feature">Групповые занятия</li>
-                            <li class="card__feature">Сауна</li>
-                        </ul>
-                        <a data-post-id="99" href="#modal-form" class="card__buy btn btn_modal">купить</a>
-                    </li>
-                    <li class="card">
-                        <h3 class="card__name"> полный день </h3>
-                        <p class="card__time"> 7:00 &ndash; 22:00 </p>
-                        <p class="card__price price"> 3200 <span class="price__unit" aria-label="рублей в месяц">р.-/мес.</span>
-                        </p>
-                        <ul class="card__features">
-                            <li class="card__feature">Безлимит посещений клуба</li>
-                            <li class="card__feature">Вводный инструктаж</li>
-                            <li class="card__feature">Групповые занятия</li>
-                            <li class="card__feature">Сауна</li>
-                        </ul>
-                        <a data-post-id="99" href="#modal-form" class="card__buy btn btn_modal">купить</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-    </main>
-
+    <?php
+    endif;
+    ?>
+    <section class="cards cards_index">
+        <div class="wrapper">
+            <h2 class="main-heading cards__h"> клубные карты </h2>
+            <ul class="cards__list row">
+                <?php
+                $query = new WP_Query([
+                    'numberposts' => -1,
+                    'post_type' => 'cards',
+                    'meta_key' => 'club_order',
+                    'orderby' => 'meta_value_num',
+                    'order' => 'ASC',
+                ]);
+                $cards = $query->posts;
+                if ( $query->have_posts() ) :
+                    while ( $query->have_posts() ):
+                        $query->the_post();
+                        $profit_class = '';
+                        if( get_field( 'club_profit' )) {
+                            $profit_class = 'card_profitable';
+                        }
+                        $benefits = get_field('club_benefits');
+                        $benefits = explode("\n", $benefits);
+                        $bg = get_field('club_bg');
+                        $default = _si_assets_path('img/index__cards_card1.jpg');
+                        $bg = $bg ?
+                            "style=\"background-image: url(${bg})\";" :
+                            "style=\"background-image: url(${default})\";";
+                        ?>
+                        <li class="card <?php echo $profit_class; ?>" <?php echo $bg; ?>>
+                            <h3 class="card__name"><?php the_title(); ?></h3>
+                            <p class="card__time">
+                                <?php the_field('club_time_start'); ?>
+                                &ndash;
+                                <?php the_field('club_time_finish'); ?>
+                            </p>
+                            <p class="card__price price"> <?php the_field('club_prices'); ?> <span class="price__unit" aria-label="рублей в месяц">р.-/мес.</span>
+                            </p>
+                            <ul class="card__features">
+                                <?php
+                                foreach ($benefits as $benefit) :
+                                    ?>
+                                    <li class="card__feature"><?php echo $benefit; ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <a data-post-id="<?php echo $id; ?>" href="#modal-form" class="card__buy btn btn_modal">купить</a>
+                        </li>
+                    <?php
+                    endwhile;
+                    wp_reset_postdata();
+                endif; ?>
+            </ul>
+        </div>
+    </section>
+</main>
 
 <?php
 get_footer();
