@@ -29,8 +29,8 @@
     <header class="main-header">
         <div class="wrapper main-header__wrap">
             <p class="main-header__logolink">
-                <?php the_custom_logo();?>
-                <span class="slogan">Твой фитнес клуб всегда рядом!</span>
+                <?php the_custom_logo(); ?>
+                <span class="slogan"><?php echo get_option( 'si_option_field_slogan' ); ?></span>
             </p>
                 <?php
                 $locations = get_nav_menu_locations();
